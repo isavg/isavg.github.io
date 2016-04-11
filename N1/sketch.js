@@ -1,3 +1,7 @@
+//crear FUERZAS
+var loadSpriteSheets;
+
+
 //Creating animations from sprite sheets
 var background_N1;
 // load tigera con cuerda
@@ -29,23 +33,150 @@ var txt_cortar;
 //txt activar aire
 var txt_aire;
 
+//ANIMACIONES
 
 //tigeras
 var sprite_sheet_tigera;
 var sprite_sheet_t;
 var tigera_animation;
 
+//burbuja explotar
+var burbuja_explode;
+//burbuja explotar
+var burbuja_acoger;
 
+//burbuja explotar
+var explode_frames = [
+  // X y Y es la ubicacion  en el spriteSheet y width y heigth son el tamaño de los frames por eso son iguales
 
+  {
+    "name": "burbuja_explotar01",
+    "frame": {
+      "x": 0,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar02",
+    "frame": {
+      "x": 177,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar03",
+    "frame": {
+      "x": 354,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar04",
+    "frame": {
+      "x": 531,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar05",
+    "frame": {
+      "x": 708,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar06",
+    "frame": {
+      "x": 885,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar07",
+    "frame": {
+      "x": 1062,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar08",
+    "frame": {
+      "x": 1239,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }
+
+];
+
+//burbuja acoger
+var embrace_frames = [{
+    "name": "burbuja_embrace01",
+    "frame": {
+      "x": 0,
+      "y": 176,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_embrace02",
+    "frame": {
+      "x": 177,
+      "y": 176,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_embrace03",
+    "frame": {
+      "x": 354,
+      "y": 176,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_embrace04",
+    "frame": {
+      "x": 531,
+      "y": 176,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_embrace05",
+    "frame": {
+      "x": 708,
+      "y": 176,
+      "width": 176,
+      "height": 175
+    }
+  }
+
+];
 
 
 function preload() {
   //specify width and height of each frame and number of frames, width,height, numero de frames
+  //burbuja explotar
+  explode = loadSpriteSheet('1erN/burbujas_anim_176_175.png', explode_frames);
+  //burbuja acoger
+  embrace = loadSpriteSheet('1erN/burbujas_anim_176_175.png', embrace_frames);
 
   //tigeras
   sprite_sheet_tigera = loadSpriteSheet('1erN/tigeras_68-67_77-666.png', 68.67, 77.666, 9);
   tigera_animation = loadAnimation(sprite_sheet_tigera);
 
+  //pasar al SpriteSheet
+  burbuja_explode = loadAnimation(explode);
+  burbuja_acoger = loadAnimation(embrace);
 
   // load home
   background_N1 = loadImage('1erN/fondo_nivel1.png');
@@ -83,10 +214,21 @@ function preload() {
 function setup() {
   createCanvas(displayWidth, displayHeight);
   //1275,750
+
+  //Crear la explocion y añadir su animacion
+  //explode_sprite.addAnimation('explotar', burbuja_explode);
 }
 
 function draw() {
   clear();
+
+  //pausa y play de la animación
+  if (mouseIsPressed) {
+    tigera_animation.play();
+  } else {
+    tigera_animation.stop();
+  }
+
   //show background
   image(background_N1, 0, 0, 818, 595);
   //tigera con soga
@@ -116,27 +258,47 @@ function draw() {
   //maletin
   image(maletin, 540, 460, 117, 111);
   //linea de corte
-  image(linea_corte, 510,155, 210, 10);
+  image(linea_corte, 510, 155, 210, 10);
   // mano señalador
   image(dedo_desliz, 640, 150, 71, 74);
   //txt cortar
-  image(txt_cortar, 640,10, 171,183);
+  image(txt_cortar, 640, 10, 171, 183);
   // txt activar aire
-  image(txt_aire, 180, 280, 188,167);
-  
-  
-  // animate the sprite sheet, poner elwidth del canvas dividido para el numero de frames
+  image(txt_aire, 180, 280, 188, 167);
+
 
 
   //tigera cortando
   animation(tigera_animation, 600, 240, 9);
 
+  //burbuja explotando
+  animation(burbuja_explode, 410, 495, 9);
+  animation(burbuja_acoger, 410, 495, 5);
 
 
-  //sprite_sheet.scale = 0.9;
-  //gesto_animation.scale=0.2;
-  //show full sheet for example reference
-  //image(sprite_sheet_image, 250,40,500,154);
+ drawSprites();
 }
+
+function mousePressed() {
+  tigera_animation.rewind();
+
+  //ventilador de abajo
+  var d = createSprite(mouseX, mouseY, 30, 30);
+  d.velocity.x = random(3, 5);
+  //s.velocity.y = random(-5,5);
+
+  //ventilador derecha
+  var r = createSprite(mouseX, mouseY, 30, 30);
+  //j.velocity.x = random(3, 5);
+  r.velocity.y = random(-5, 5);
+
+  //ventilador arriba
+  var u = createSprite(mouseX, mouseY, 30, 30);
+  //u.velocity.x = random(3, 5);
+  u.velocity.y = random(-5, 5);
+
+}
+
+
 
 
