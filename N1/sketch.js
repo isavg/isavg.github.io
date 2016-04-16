@@ -33,6 +33,24 @@ var txt_cortar;
 //txt activar aire
 var txt_aire;
 
+//SPRITES FIJOS sin SPRITESHEETS
+
+//maletin
+var sprite_sheet_maletin;
+
+//focos
+var sprite_sheet_focos;
+
+//ventilador hacia abajo
+var sprite_sheet_vent_hacia_abajo;
+
+//ventilador hacia derecha
+var sprite_sheet_vent_hacia_der;
+
+//ventilador hacia izquierda
+var sprite_sheet_vent_izk;
+
+
 //ANIMACIONES
 
 //tigeras
@@ -178,42 +196,84 @@ function preload() {
   burbuja_explode = loadAnimation(explode);
   burbuja_acoger = loadAnimation(embrace);
 
+  //create Sprite foco
+  sprite_sheet_focos = createSprite(280, 175, 51, 51);
+  sprite_sheet_focos.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
+
+  //_____
+  //create Sprite tijewra cuerda
+  sprite_sheet_tijera_cuerda = createSprite(603, 165, 73, 224.67);
+  sprite_sheet_tijera_cuerda.addImage('tijera_cuerda', loadImage('1erN/tigera_soga_73_224-67.png'));
+
+  //create Sprite pin tomate1
+  sprite_pin_tomate = createSprite(615, 60, 43, 5);
+  sprite_pin_tomate.addImage('pin_tomate', loadImage('1erN/pin_tomate_43_55.png'));
+  
+    //create Sprite pin tomate2
+  sprite_pin_tomate = createSprite(645, 360, 43, 5);
+  sprite_pin_tomate.addImage('pin_tomate', loadImage('1erN/pin_tomate_43_55.png'));
+
+  //create Sprite pin amarillo
+  sprite_sheet_pin_amarillo = createSprite(270, 200, 56, 57);
+  sprite_sheet_pin_amarillo.addImage('pin_amarillo', loadImage('1erN/pin_amarillo_56_57.png'));
+
+  //create Sprite ventilador hacia derecha
+  sprite_sheet_ventilador_hacia_derecha = createSprite(250, 495 , 167, 151);
+  sprite_sheet_ventilador_hacia_derecha.addImage('ventilador_hacia_derecha', loadImage('1erN/ventilador_a_derecha_167_151.png'));
+
+  //create Sprite ventilador hacia izkierda
+  sprite_sheet_ventilador_hacia_izkierda = createSprite(735, 260, 167, 15);
+  sprite_sheet_ventilador_hacia_izkierda.addImage('ventilador_hacia_izkierda', loadImage('1erN/ventilador_a_izkierda_167_151.png'));
+
+  //create Sprite ventilador hacia abajo
+  sprite_sheet_ventilador_hacia_abajo = createSprite(470, 85, 109, 170);
+  sprite_sheet_ventilador_hacia_abajo.addImage('ventilador_hacia_abajo', loadImage('1erN/ventilador_a_abajo_109_170.png'));
+
+  //create Sprite pinchos
+  sprite_sheet_pinchos = createSprite(390, 120, 35, 197);
+  sprite_sheet_pinchos.addImage('pinchos', loadImage('1erN/pinchos_35_197.png'));
+
+  //create Sprite maletin
+  sprite_sheet_maletin = createSprite(600, 510, 117, 111);
+  sprite_sheet_maletin.addImage('maletin', loadImage('1erN/maletin_117_111.png'));
+
+  //create Sprite cuerda amarilla
+  sprite_sheet_cuerda_amarilla = createSprite(460, 294, 396.67, 147.333);
+  sprite_sheet_cuerda_amarilla.addImage('cuerda_amarilla', loadImage('1erN/cuerda_amarilla_396-67_147-333.png'));
+
+  //create Sprite linea corte
+  sprite_sheet_linea_corte = createSprite(635, 165, 210, 1);
+  sprite_sheet_linea_corte.addImage('linea de corte', loadImage('1erN/linea_corte_210_10.png'));
+
+  //create Sprite dedo desliz
+  sprite_sheet_dedo_desliz = createSprite(660, 190, 71, 74);
+  sprite_sheet_dedo_desliz.addImage('fdedo_desliz', loadImage('1erN/dedo_indicador_71_74.png'));
+
+  //create Sprite txt cortar
+  sprite_sheet_txt_cortar = createSprite(720, 102, 171, 183);
+  sprite_sheet_txt_cortar.addImage('txt_cortar', loadImage('1erN/txt_deslizar_dedo_171_183.png'));
+
+  //create Sprite tkt aire
+  sprite_sheet_txt_aire = createSprite(280, 360, 188, 167);
+  sprite_sheet_txt_aire.addImage('txt_aire', loadImage('1erN/txt_activar_aire_188_167.png'));
+
+
+
+
+
+
+  //_____  solo imagenes
   // load home
   background_N1 = loadImage('1erN/fondo_nivel1.png');
-  // load tigera con cuerda
-  tigera_cuerda = loadImage('1erN/tigera_soga_73_224-67.png');
-  //load pin tomate
-  pin_tomate = loadImage('1erN/pin_tomate_43_55.png');
-  //load pin amarillo
-  pin_amarillo = loadImage('1erN/pin_amarillo_56_57.png');
-  //load foco
-  foco = loadImage('1erN/foco_idea_51.png');
-  //ventilador hacia derecha
-  ventilador_hacia_derecha = loadImage('1erN/ventilador_a_derecha_167_151.png');
-  //ventilador hacia derecha
-  ventilador_hacia_izkierda = loadImage('1erN/ventilador_a_izkierda_167_151.png');
-  //ventilador hacia abajo
-  ventilador_hacia_abajo = loadImage('1erN/ventilador_a_abajo_109_170.png');
-  //pinchos
-  pinchos = loadImage('1erN/pinchos_35_197.png');
-  //maletin
-  maletin = loadImage('1erN/maletin_117_111.png');
-  //cuerda amarilla
-  cuerda_amarilla = loadImage('1erN/cuerda_amarilla_396-67_147-333.png');
-  //linea de corte
-  linea_corte = loadImage('1erN/linea_corte_210_10.png');
-  // mano señalador
-  dedo_desliz = loadImage('1erN/dedo_indicador_71_74.png');
-  //txt cortar
-  txt_cortar = loadImage('1erN/txt_deslizar_dedo_171_183.png');
-  // txt activar aire
-  txt_aire = loadImage('1erN/txt_activar_aire_188_167.png');
+ 
 
 }
 
 function setup() {
   createCanvas(displayWidth, displayHeight);
   //1275,750
+
+  //focos para recoger
 
   //Crear la explocion y añadir su animacion
   //explode_sprite.addAnimation('explotar', burbuja_explode);
@@ -231,43 +291,8 @@ function draw() {
 
   //show background
   image(background_N1, 0, 0, 818, 595);
-  //tigera con soga
-  image(tigera_cuerda, 564, 50, 73, 224.67);
-  //cuerda amarilla
-  image(cuerda_amarilla, 252, 227, 396.67, 147.333);
-  //pin tomate1
-  image(pin_tomate, 593, 18, 43, 55);
-  //pin tomate2
-  image(pin_tomate, 630, 330, 43, 55);
-  //pin amarillo
-  image(pin_amarillo, 222, 189, 56, 57);
-  //foco1
-  image(foco, 640, 85, 51, 51);
-  //foco2
-  image(foco, 480, 175, 51, 51);
-  //foco3
-  image(foco, 235, 60, 51, 51);
-  //ventilador hacia derecha
-  image(ventilador_hacia_derecha, 170, 420, 167, 151);
-  //ventilador hacia derecha
-  image(ventilador_hacia_izkierda, 655, 187, 167, 151);
-  //ventilador hacia abajo
-  image(ventilador_hacia_abajo, 430, 0, 109, 170);
-  //pinchos
-  image(pinchos, 370, 20, 35, 197);
-  //maletin
-  image(maletin, 540, 460, 117, 111);
-  //linea de corte
-  image(linea_corte, 510, 155, 210, 10);
-  // mano señalador
-  image(dedo_desliz, 640, 150, 71, 74);
-  //txt cortar
-  image(txt_cortar, 640, 10, 171, 183);
-  // txt activar aire
-  image(txt_aire, 180, 280, 188, 167);
-
-
-
+  //maletin.collide(focos);
+  //maletin.overlap(focos, collect);
   //tigera cortando
   animation(tigera_animation, 600, 240, 9);
 
@@ -276,7 +301,14 @@ function draw() {
   animation(burbuja_acoger, 410, 495, 5);
 
 
- drawSprites();
+
+  drawSprites();
+}
+
+function coleccionar(collector, collected) {
+  //collector.changeAnimation("");
+  collector.animation.rewind();
+  collected.remove();
 }
 
 function mousePressed() {
@@ -296,9 +328,4 @@ function mousePressed() {
   var u = createSprite(mouseX, mouseY, 30, 30);
   //u.velocity.x = random(3, 5);
   u.velocity.y = random(-5, 5);
-
 }
-
-
-
-
