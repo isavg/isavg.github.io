@@ -2,7 +2,7 @@ var estado;
 
 //crear FUERZAS
 var loadSpriteSheets;
-var GRAVITY = 0.2;
+var GRAVITY;
 var JUMP = 17;
 
 
@@ -57,10 +57,11 @@ var sprite_sheet_vent_izk;
 
 //ANIMACIONES
 
-//tigeras
-var sprite_sheet_tigera;
-var sprite_sheet_t;
-var tigera_animation;
+//TIJERAS
+var t;
+var t1;
+var sprite_sheet_tijera;
+var animation_tijera;
 
 //burbuja explotar
 var burbuja_explode;
@@ -70,26 +71,119 @@ var burbuja_acoger;
 //burbuja explotar
 var explode_frames = [
   // X y Y es la ubicacion  en el spriteSheet y width y heigth son el tamaño de los frames por eso son iguales
-{"name": "burbuja_explotar01","frame": {"x": 0,"y": 0,"width": 176,"height": 175}},
-{"name": "burbuja_explotar02","frame": {"x": 177,"y": 0,"width": 176,"height": 175}}, 
-{"name": "burbuja_explotar03","frame": {"x": 354,"y": 0,"width": 176,"height": 175}},
-{"name": "burbuja_explotar04","frame": {"x": 531,"y": 0,"width": 176,"height": 175}}, 
-{"name": "burbuja_explotar05","frame": {"x": 708,"y": 0,"width": 176,"height": 175}}, 
-{"name": "burbuja_explotar06","frame": {"x": 885,"y": 0,"width": 176,"height": 175}},
-{"name": "burbuja_explotar07","frame": {"x": 1062,"y": 0,"width": 176,"height": 175}},
-{"name": "burbuja_explotar08","frame": {"x": 1239,"y": 0,"width": 176,"height": 175}}
+  {
+    "name": "burbuja_explotar01",
+    "frame": {
+      "x": 0,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar02",
+    "frame": {
+      "x": 177,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar03",
+    "frame": {
+      "x": 354,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar04",
+    "frame": {
+      "x": 531,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar05",
+    "frame": {
+      "x": 708,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar06",
+    "frame": {
+      "x": 885,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar07",
+    "frame": {
+      "x": 1062,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_explotar08",
+    "frame": {
+      "x": 1239,
+      "y": 0,
+      "width": 176,
+      "height": 175
+    }
+  }
 
 ];
 
 //burbuja acoger
-var embrace_frames = [
-{"name": "burbuja_embrace01","frame": {"x": 0,"y": 176,"width": 176,"height": 175}}, 
-{"name": "burbuja_embrace02","frame": {"x": 177,"y": 176,"width": 176,"height": 175}}, 
-{"name": "burbuja_embrace03","frame": {"x": 354,"y": 176,"width": 176,"height": 175}}, 
-{"name": "burbuja_embrace04","frame": {"x": 531, "y": 176,"width": 176,"height": 175}},
-{"name": "burbuja_embrace05","frame": {"x": 708,"y": 176,"width": 176,"height": 175}}
-  
-  ];
+var embrace_frames = [{
+    "name": "burbuja_embrace01",
+    "frame": {
+      "x": 0,
+      "y": 176,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_embrace02",
+    "frame": {
+      "x": 177,
+      "y": 176,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_embrace03",
+    "frame": {
+      "x": 354,
+      "y": 176,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_embrace04",
+    "frame": {
+      "x": 531,
+      "y": 176,
+      "width": 176,
+      "height": 175
+    }
+  }, {
+    "name": "burbuja_embrace05",
+    "frame": {
+      "x": 708,
+      "y": 176,
+      "width": 176,
+      "height": 175
+    }
+  }
+
+];
+
 
 
 function preload() {
@@ -100,12 +194,10 @@ function preload() {
   embrace = loadSpriteSheet('1erN/burbujas_anim_176_175.png', embrace_frames);
 
   //tigeras
-  sprite_sheet_tigera = loadSpriteSheet('1erN/tigeras_68-67_77-666.png', 68.67, 77.666, 9);
-  tigera_animation = loadAnimation(sprite_sheet_tigera);
-  //___
-  // var animtij = tijera_animation.addAnimation("tijeras", '1erN/tigeras_68-67_77-666.png', 68.67, 77.666, 9);
 
-
+  sprite_sheet_tijera = loadSpriteSheet('1erN/tigeras_68-67_77-666.png', 68.67, 77.666, 9);
+  animation_tijera = loadAnimation(sprite_sheet_tijera);
+  //______
 
   //pasar al SpriteSheet
   burbuja_explode = loadAnimation(explode);
@@ -124,7 +216,7 @@ function preload() {
   sprite_sheet_focos.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
 
   //_____
-  //create Sprite tijewra cuerda
+  //create Sprite tijera cuerda
   sprite_sheet_tijera_cuerda = createSprite(603, 165, 73, 224.67);
   sprite_sheet_tijera_cuerda.addImage('tijera_cuerda', loadImage('1erN/tigera_soga_73_224-67.png'));
 
@@ -151,6 +243,10 @@ function preload() {
   //create Sprite ventilador hacia abajo
   sprite_sheet_ventilador_hacia_abajo = createSprite(470, 85, 109, 170);
   sprite_sheet_ventilador_hacia_abajo.addImage('ventilador_hacia_abajo', loadImage('1erN/ventilador_a_abajo_109_170.png'));
+  sprite_sheet_ventilador_hacia_abajo.colliderType = "image";
+  sprite_sheet_ventilador_hacia_abajo.rotation = 30;
+
+  sprite_sheet_ventilador_hacia_abajo.debug = true;
 
   //create Sprite pinchos
   sprite_sheet_pinchos = createSprite(390, 120, 35, 197);
@@ -180,6 +276,7 @@ function preload() {
   //create Sprite tkt aire
   sprite_sheet_txt_aire = createSprite(280, 360, 188, 167);
   sprite_sheet_txt_aire.addImage('txt_aire', loadImage('1erN/txt_activar_aire_188_167.png'));
+
   //_____  solo imagenes
   // load home
   background_N1 = loadImage('1erN/fondo_nivel1.png');
@@ -188,113 +285,125 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(displayWidth, displayHeight);
-  //1275,750
+  createCanvas(810, 600);
+  GRAVITY = 0;
+  // displayWidth, displayHeight
 
   //focos para recoger
 
-estado = 0;
+  estado = 0;
+
+  //TIGERAS ANIM Abajo
+
+  t = createSprite(600, 240, 70, 77);
+  t.addAnimation('cortar', animation_tijera);
+  t.setCollider('rectangle', 0, 0, 70, 77);
+  t.visible = false;
+  //t.debug = true;
 
 
   //SPRITES PARA EL VENTILADOR HACIA DERECHA
   sprite_sheet_ventilador_hacia_derecha.onMousePressed = function() {
     //ventilador de abajo
     var d = createSprite(mouseX, mouseY, 30, 30);
-    d.velocity.x = random(3, 5);
-    //s.velocity.y = random(-5,5);
+    d.velocity.x = random(3, 7);
+    d.life = 40;
+    d.setCollider("rectangle", 0, 0, 40, 40);
+    d.rotation = 45;
 
+    d.debug = true;
   }
 
   //SPRITES PARA EL VENTILADOR HACIA ABAJO
-
   sprite_sheet_ventilador_hacia_izkierda.onMousePressed = function() {
     //ventilador de abajo
     var a = createSprite(mouseX, mouseY, 30, 30);
     a.velocity.x = random(-3, -5);
+    a.life = 40;
+
     //s.velocity.y = random(-5,5);
   }
 
   //SPRITES PARA EL VENTILADOR HACIA IZKIERDA
-
   sprite_sheet_ventilador_hacia_abajo.onMousePressed = function() {
-
     var i = createSprite(mouseX, mouseY, 30, 30);
     i.velocity.y = random(2, 2);
+    i.life = 40;
   }
 
-  //CORTAR LA SOGA: TIGERA CORTAR
+  //<<<<<<<<<<<<ERROR>>>>>>>>CORTAR LA SOGA: TIGERA CORTAR
   sprite_sheet_tijera_cuerda.onMousePressed = function() {
-      if (sprite_sheet_tijera_cuerda.onMousePressed) {
-        tigera_animation.play();
-      } else {
-        tigera_animation.stop();
-      }
+      t.visible = true;
+      t.velocity.y = 2;
     }
     //tigera_animation.velocity.y = (mouseY-tigera.position.y)/10;
 
-
   sprite_sheet_tijera_cuerda.onMouseReleased = function() {
-    
     sprite_sheet_tijera_cuerda.visible = !sprite_sheet_tijera_cuerda;
+  }
 
+  sprite_sheet_ventilador_hacia_abajo.onMousePressed = function() {
+    print("collide");
   }
 }
-  function draw() {
-    clear();
-    
-    if (estado === 0){
-    estado == 1;
-    sprite_sheet_txt_cortar;
-    sprite_sheet_txt_aire;
 
-    }
-    
-    if (estado === 1){
-      estado == 2;
-    }
-
-    //pausa y play de la animación
-    //if (mouseIsPressed) {
-    //tigera_animation.play();
-    //} else {
-    //tigera_animation.stop();
-    //}
-
-    //show background
-    image(background_N1, 0, 0, 818, 595);
-    //maletin.collide(focos);
-    //maletin.overlap(focos, collect);
-    //tigera cortando
-    animation(tigera_animation, 600, 240, 9);
-
-    //burbuja explotando
-    animation(burbuja_explode, 410, 495, 9);
-    animation(burbuja_acoger, 410, 495, 5);
-
-    //COLLIDERS
-
-    //maletin.position.x =100;
-    //maletin.position.y =100;
-    //cuerdam.position.x = mouseX;
-    //cuerdam.position.y = mouseY;
-
-    //maletin.collide(cuerdam);
+function draw() {
+  clear();
 
 
 
 
-    drawSprites();
-  }
+  //show background
+  image(background_N1, 0, 0, 818, 595);
+  //maletin.collide(focos);
+  //maletin.overlap(focos, collect);
 
-  //  function coleccionar(collector, collected) {
-  //    //collector.changeAnimation("");
-  //    collector.animation.rewind();
-  //    collected.remove();
-  //  }
+  //________________________________________
+
+  //burbuja explotando
+  animation(burbuja_explode, 410, 495, 9);
+  animation(burbuja_acoger, 410, 495, 5);
+
+  //TIJERAS
+  // grupo.displace(pelota);
+  drawSprites();
+
+  //COLLIDERS
+
+  //maletin.position.x =100;
+  //maletin.position.y =100;
+  //cuerdam.position.x = mouseX;
+  //cuerdam.position.y = mouseY;
+
+  //maletin.collide(cuerdam);
+  //   if (estado === 0){
+  //estado == 1;
+  //sprite_sheet_txt_cortar.visible = !sprite_sheet_txt_cortar.mouseIsPressed;
+  //sprite_sheet_txt_aire.visible = !sprite_sheet_txt_aire.mouseIsPressed;
+  //sprite_sheet_dedo_desliz.visible = !sprite_sheet_dedo_desliz.mouseIsPressed;  
+  //sprite_sheet_linea_corte.visible = !sprite_sheet_linea_corte.mouseIsPressed;
+  //}
+  //if (estado === 1){
+  // estado == 2;
+  //}
 
 
-  
-  
-  
-  
-  
+
+  drawSprites();
+}
+
+//function mouseClicked(){
+//  if(estado==0){
+//    sprite_sheet_txt_cortar
+//    sprite_sheet_txt_aire
+//    sprite_sheet_dedo_desliz  
+//    sprite_sheet_linea_corte
+//    estado = 1000;
+//  }
+//}
+
+//  function coleccionar(collector, collected) {
+//    //collector.changeAnimation("");
+//    collector.animation.rewind();
+//    collected.remove();
+//  }
