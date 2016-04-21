@@ -6,6 +6,7 @@ var GRAVITY;
 var JUMP = 17;
 
 
+
 //Creating animations from sprite sheets
 var background_N1;
 // load tigera con cuerda
@@ -54,7 +55,7 @@ var sprite_sheet_vent_hacia_der;
 //ventilador hacia izquierda
 var sprite_sheet_vent_izk;
 
-
+var sprite_sheet_cuerda_amarilla;
 //ANIMACIONES
 
 //TIJERAS
@@ -68,119 +69,32 @@ var burbuja_explode;
 //burbuja explotar
 var burbuja_acoger;
 
+var burbuja_normal = [
+  {"name": "burbuja_normal_00", "frame": {"x": 0,"y": 0,"width": 176,"height": 175}}
+    
+  ]
+
 //burbuja explotar
 var explode_frames = [
   // X y Y es la ubicacion  en el spriteSheet y width y heigth son el tamaño de los frames por eso son iguales
-  {
-    "name": "burbuja_explotar01",
-    "frame": {
-      "x": 0,
-      "y": 0,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_explotar02",
-    "frame": {
-      "x": 177,
-      "y": 0,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_explotar03",
-    "frame": {
-      "x": 354,
-      "y": 0,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_explotar04",
-    "frame": {
-      "x": 531,
-      "y": 0,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_explotar05",
-    "frame": {
-      "x": 708,
-      "y": 0,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_explotar06",
-    "frame": {
-      "x": 885,
-      "y": 0,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_explotar07",
-    "frame": {
-      "x": 1062,
-      "y": 0,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_explotar08",
-    "frame": {
-      "x": 1239,
-      "y": 0,
-      "width": 176,
-      "height": 175
-    }
+  {"name": "burbuja_explotar01","frame": {"x": 0,"y": 0,"width": 176,"height": 175}},
+  {"name": "burbuja_explotar02","frame": {"x": 177,"y": 0,"width": 176,"height": 175}}, 
+  {"name": "burbuja_explotar03","frame": {"x": 354,"y": 0,"width": 176,"height": 175}}, 
+  {"name": "burbuja_explotar04","frame": {"x": 531,"y": 0,"width": 176,"height": 175}}, 
+  {"name": "burbuja_explotar05","frame": {"x": 708,"y": 0,"width": 176,"height": 175}}, 
+  {"name": "burbuja_explotar06","frame": {"x": 885,"y": 0,"width": 176,"height": 175}}, 
+  {"name": "burbuja_explotar07","frame": {"x": 1062,"y": 0,"width": 176,"height": 175}},
+  {"name": "burbuja_explotar08","frame": {"x": 1239,"y": 0,"width": 176,"height": 175}
   }
 
 ];
 
 //burbuja acoger
-var embrace_frames = [{
-    "name": "burbuja_embrace01",
-    "frame": {
-      "x": 0,
-      "y": 176,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_embrace02",
-    "frame": {
-      "x": 177,
-      "y": 176,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_embrace03",
-    "frame": {
-      "x": 354,
-      "y": 176,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_embrace04",
-    "frame": {
-      "x": 531,
-      "y": 176,
-      "width": 176,
-      "height": 175
-    }
-  }, {
-    "name": "burbuja_embrace05",
-    "frame": {
-      "x": 708,
-      "y": 176,
-      "width": 176,
-      "height": 175
-    }
-  }
+var embrace_frames = [{"name": "burbuja_embrace01","frame": {"x": 0,"y": 176,"width": 176,"height": 175}}, 
+{"name": "burbuja_embrace02","frame": {"x": 177,"y": 176,"width": 176,"height": 175}}, 
+{"name": "burbuja_embrace03","frame": {"x": 354,"y": 176,"width": 176,"height": 175}}, 
+{"name": "burbuja_embrace04","frame": {"x": 531,"y": 176,"width": 176,"height": 175}}, 
+{"name": "burbuja_embrace05","frame": { "x": 708,"y": 176,"width": 176,"height": 175}}
 
 ];
 
@@ -195,7 +109,7 @@ function preload() {
 
   //tigeras
 
-  sprite_sheet_tijera = loadSpriteSheet('1erN/tigeras_68-67_77-666.png', 68.67, 77.666, 9);
+  sprite_sheet_tijera = loadSpriteSheet('1erN/tigeras_68-67_77-666.png', 69, 78.2, 9);
   animation_tijera = loadAnimation(sprite_sheet_tijera);
   //______
 
@@ -243,10 +157,10 @@ function preload() {
   //create Sprite ventilador hacia abajo
   sprite_sheet_ventilador_hacia_abajo = createSprite(470, 85, 109, 170);
   sprite_sheet_ventilador_hacia_abajo.addImage('ventilador_hacia_abajo', loadImage('1erN/ventilador_a_abajo_109_170.png'));
-  sprite_sheet_ventilador_hacia_abajo.colliderType = "image";
-  sprite_sheet_ventilador_hacia_abajo.rotation = 30;
+  //sprite_sheet_ventilador_hacia_abajo.colliderType = "image";
+  //sprite_sheet_ventilador_hacia_abajo.rotation = 30;
 
-  sprite_sheet_ventilador_hacia_abajo.debug = true;
+  //sprite_sheet_ventilador_hacia_abajo.debug = true;
 
   //create Sprite pinchos
   sprite_sheet_pinchos = createSprite(390, 120, 35, 197);
@@ -260,6 +174,8 @@ function preload() {
   //create Sprite cuerda amarilla
   sprite_sheet_cuerda_amarilla = createSprite(460, 294, 396.67, 147.333);
   sprite_sheet_cuerda_amarilla.addImage('cuerda_amarilla', loadImage('1erN/cuerda_amarilla_396-67_147-333.png'));
+  sprite_sheet_cuerda_amarilla.setCollider("rectangle", 150, 60, 30, 30);
+ // sprite_sheet_cuerda_amarilla.debug = true;
 
   //create Sprite linea corte
   sprite_sheet_linea_corte = createSprite(635, 165, 210, 1);
@@ -308,10 +224,10 @@ function setup() {
     var d = createSprite(mouseX, mouseY, 30, 30);
     d.velocity.x = random(3, 7);
     d.life = 40;
-    d.setCollider("rectangle", 0, 0, 40, 40);
-    d.rotation = 45;
+    //d.setCollider("rectangle", 0, 0, 40, 40);
+    //d.rotation = 45;
 
-    d.debug = true;
+    //d.debug = true;
   }
 
   //SPRITES PARA EL VENTILADOR HACIA ABAJO
@@ -342,9 +258,9 @@ function setup() {
     sprite_sheet_tijera_cuerda.visible = !sprite_sheet_tijera_cuerda;
   }
 
-  sprite_sheet_ventilador_hacia_abajo.onMousePressed = function() {
-    print("collide");
-  }
+  //sprite_sheet_ventilador_hacia_abajo.onMousePressed = function() {
+  //print("collide");
+  //}
 }
 
 function draw() {
@@ -387,7 +303,10 @@ function draw() {
   // estado == 2;
   //}
 
-
+  if (t.overlap(sprite_sheet_cuerda_amarilla)) {
+    sprite_sheet_cuerda_amarilla.visible = false;
+    print("desaparecer cuerda");
+  }
 
   drawSprites();
 }
@@ -407,3 +326,7 @@ function draw() {
 //    collector.animation.rewind();
 //    collected.remove();
 //  }
+
+
+
+
