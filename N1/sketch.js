@@ -1,11 +1,16 @@
-var estado;
+//srpite Viento
+ var viento;
+
+//<<< PARA PRIMER CLICK
+var estado = -1;
 
 //crear FUERZAS
 var loadSpriteSheets;
 var GRAVITY;
 var JUMP = 17;
 
-
+//<<COELTIBLES
+var collectibles;
 
 //Creating animations from sprite sheets
 var background_N1;
@@ -25,8 +30,8 @@ var ventilador_hacia_izkierda;
 var ventilador_hacia_abajo;
 //pinchos
 var pinchos;
-// maletin
-var maletin;
+//// maletin
+//var maletin;
 // cuerda amarilla
 var cuerda_amarilla;
 //linea de corte
@@ -40,8 +45,8 @@ var txt_aire;
 
 //SPRITES FIJOS sin SPRITESHEETS
 
-//maletin
-var sprite_sheet_maletin;
+////maletin
+//var sprite_sheet_maletin;
 
 //focos
 var sprite_sheet_focos;
@@ -57,6 +62,20 @@ var sprite_sheet_vent_izk;
 
 var sprite_sheet_cuerda_amarilla;
 //ANIMACIONES
+
+//_________
+//MALETIN
+var m;
+var m1;
+var sprite_sheet_maletin;
+var maletin;
+
+//BURBUJA
+var b;
+var b1;
+var sprite_sheet_burbuja;
+var burbuja_normal;
+//_________
 
 //TIJERAS
 var t;
@@ -117,22 +136,27 @@ function preload() {
   burbuja_explode = loadAnimation(explode);
   burbuja_acoger = loadAnimation(embrace);
 
-  //create Sprite foco1
-  sprite_sheet_focos = createSprite(270, 85, 51, 51);
-  sprite_sheet_focos.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
+  //____________________________
+  //<<//create Sprite foco1
+  //<<sprite_sheet_focos = createSprite(270, 85, 51, 51);
+  //<<sprite_sheet_focos.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
 
-  //create Sprite foco2
-  sprite_sheet_focos = createSprite(510, 205, 51, 51);
-  sprite_sheet_focos.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
+  //<<//create Sprite foco2
+  //<<sprite_sheet_focos = createSprite(510, 205, 51, 51);
+  //<<sprite_sheet_focos.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
 
-  //create Sprite foco3
-  sprite_sheet_focos = createSprite(665, 110, 51, 51);
-  sprite_sheet_focos.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
+ //<< //create Sprite foco3
+  //<<sprite_sheet_focos = createSprite(665, 110, 51, 51);
+  //<<sprite_sheet_focos.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
 
   //_____
-  //create Sprite tijera cuerda
-  sprite_sheet_tijera_cuerda = createSprite(603, 165, 73, 224.67);
-  sprite_sheet_tijera_cuerda.addImage('tijera_cuerda', loadImage('1erN/tigera_soga_73_224-67.png'));
+  
+  
+  
+  
+  ////create Sprite tijera cuerda
+  //sprite_sheet_tijera_cuerda = createSprite(603, 165, 73, 224.67);
+  //sprite_sheet_tijera_cuerda.addImage('tijera_cuerda', loadImage('1erN/tigera_soga_73_224-67.png'));
 
   //create Sprite pin tomate1
   sprite_pin_tomate = createSprite(615, 60, 43, 5);
@@ -145,10 +169,6 @@ function preload() {
   //create Sprite pin amarillo
   sprite_sheet_pin_amarillo = createSprite(270, 200, 56, 57);
   sprite_sheet_pin_amarillo.addImage('pin_amarillo', loadImage('1erN/pin_amarillo_56_57.png'));
-
-  //create Sprite ventilador hacia derecha
-  sprite_sheet_ventilador_hacia_derecha = createSprite(250, 495, 167, 151);
-  sprite_sheet_ventilador_hacia_derecha.addImage('ventilador_hacia_derecha', loadImage('1erN/ventilador_a_derecha_167_151.png'));
 
   //create Sprite ventilador hacia izkierda
   sprite_sheet_ventilador_hacia_izkierda = createSprite(735, 260, 167, 15);
@@ -166,16 +186,12 @@ function preload() {
   sprite_sheet_pinchos = createSprite(390, 120, 35, 197);
   sprite_sheet_pinchos.addImage('pinchos', loadImage('1erN/pinchos_35_197.png'));
 
-  //create Sprite maletin
+  ////create Sprite maletin
+  //sprite_sheet_maletin = createSprite(mouseX, mouseY, 117, 111);
+  //sprite_sheet_maletin = createSprite(600, 510, 117, 111);
+  //sprite_sheet_maletin.addImage('maletin', loadImage('1erN/maletin_117_111.png'));
 
-  sprite_sheet_maletin = createSprite(600, 510, 117, 111);
-  sprite_sheet_maletin.addImage('maletin', loadImage('1erN/maletin_117_111.png'));
 
-  //create Sprite cuerda amarilla
-  sprite_sheet_cuerda_amarilla = createSprite(460, 294, 396.67, 147.333);
-  sprite_sheet_cuerda_amarilla.addImage('cuerda_amarilla', loadImage('1erN/cuerda_amarilla_396-67_147-333.png'));
-  sprite_sheet_cuerda_amarilla.setCollider("rectangle", 150, 60, 30, 30);
- // sprite_sheet_cuerda_amarilla.debug = true;
 
   //create Sprite linea corte
   sprite_sheet_linea_corte = createSprite(635, 165, 210, 1);
@@ -193,6 +209,29 @@ function preload() {
   sprite_sheet_txt_aire = createSprite(280, 360, 188, 167);
   sprite_sheet_txt_aire.addImage('txt_aire', loadImage('1erN/txt_activar_aire_188_167.png'));
 
+//_________________________________________
+//>> AKI BURBUJA
+  sprite_sheet_burbuja = loadSpriteSheet('1erN/burbujas_anim_176_175.png', burbuja_normal);
+  burbuja_normal = loadAnimation(sprite_sheet_burbuja);
+
+
+  //create Sprite tijera cuerda
+  sprite_sheet_tijera_cuerda = createSprite(603, 165, 73, 224.67);
+  sprite_sheet_tijera_cuerda.addImage('tijera_cuerda', loadImage('1erN/tigera_soga_73_224-67.png'));
+
+
+  //create Sprite ventilador hacia derecha
+  sprite_sheet_ventilador_hacia_derecha = createSprite(250, 495, 167, 151);
+  sprite_sheet_ventilador_hacia_derecha.addImage('ventilador_hacia_derecha', loadImage('1erN/ventilador_a_derecha_167_151.png'));
+
+
+  //create Sprite cuerda amarilla
+  sprite_sheet_cuerda_amarilla = createSprite(460, 294, 396.67, 147.333);
+  sprite_sheet_cuerda_amarilla.addImage('cuerda_amarilla', loadImage('1erN/cuerda_amarilla_396-67_147-333.png'));
+  sprite_sheet_cuerda_amarilla.setCollider("rectangle", 150, 60, 30, 30);
+ // sprite_sheet_cuerda_amarilla.debug = true;
+//___________________________________________________
+
   //_____  solo imagenes
   // load home
   background_N1 = loadImage('1erN/fondo_nivel1.png');
@@ -202,40 +241,55 @@ function preload() {
 
 function setup() {
   createCanvas(810, 600);
-  GRAVITY = 0;
+  GRAVITY = 0.4;
+  viento = new Group();
+  aviento = new Group();
+  iviento = new Group();
   // displayWidth, displayHeight
 
   //focos para recoger
 
-  estado = 0;
+
+
+//MALETIN
+
+m = createSprite(600,510,117,111);
+m.addImage('maletin', loadImage('1erN/maletin_117_111.png'));
+m.setCollider('rectangle',0,0,57);
+m.debug = true;
+
 
   //TIGERAS ANIM Abajo
-
   t = createSprite(600, 240, 70, 77);
   t.addAnimation('cortar', animation_tijera);
   t.setCollider('rectangle', 0, 0, 70, 77);
   t.visible = false;
   //t.debug = true;
 
+  //BURBUJA ANIM
+  
+    b = createSprite(410, 495,176,175);
+    b.addAnimation('burbnormal',burbuja_normal);
+    b.setCollider("circle", 0, 0, 80);
+    b.debug = true;
 
   //SPRITES PARA EL VENTILADOR HACIA DERECHA
   sprite_sheet_ventilador_hacia_derecha.onMousePressed = function() {
-    //ventilador de abajo
-    var d = createSprite(mouseX, mouseY, 30, 30);
-    d.velocity.x = random(3, 7);
-    d.life = 40;
-    //d.setCollider("rectangle", 0, 0, 40, 40);
-    //d.rotation = 45;
-
-    //d.debug = true;
+   var v = createSprite(mouseX, mouseY, 30, 30);
+    v.setCollider("rectangle", 0, 0, 15, 15);
+    v.velocity.x = random(3, 7);
+    v.life = 40;
+    viento.add(v);
   }
 
   //SPRITES PARA EL VENTILADOR HACIA ABAJO
   sprite_sheet_ventilador_hacia_izkierda.onMousePressed = function() {
     //ventilador de abajo
     var a = createSprite(mouseX, mouseY, 30, 30);
+    a.setCollider("rectangle",0,0,15,15);
     a.velocity.x = random(-3, -5);
     a.life = 40;
+    aviento.add(a);
 
     //s.velocity.y = random(-5,5);
   }
@@ -243,11 +297,13 @@ function setup() {
   //SPRITES PARA EL VENTILADOR HACIA IZKIERDA
   sprite_sheet_ventilador_hacia_abajo.onMousePressed = function() {
     var i = createSprite(mouseX, mouseY, 30, 30);
+    i.setCollider("rectangle",0,0,15,15);
     i.velocity.y = random(2, 2);
     i.life = 40;
+    iviento.add(i);
   }
 
-  //<<<<<<<<<<<<ERROR>>>>>>>>CORTAR LA SOGA: TIGERA CORTAR
+  //<<<<<<<<<<<<AKIIII>CORTAR LA SOGA: TIGERA CORTAR
   sprite_sheet_tijera_cuerda.onMousePressed = function() {
       t.visible = true;
       t.velocity.y = 2;
@@ -256,6 +312,24 @@ function setup() {
 
   sprite_sheet_tijera_cuerda.onMouseReleased = function() {
     sprite_sheet_tijera_cuerda.visible = !sprite_sheet_tijera_cuerda;
+  }
+  
+  
+  //<<COELTIBLES
+  collectibles = new Group();
+  
+  {
+  var foco1 = createSprite(270, 85, 51, 51);
+  foco1.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
+  collectibles.add(foco1);
+  
+  var foco2 = createSprite(510, 205, 51, 51);
+  foco2.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
+  collectibles.add(foco2);
+  
+  var foco3 = createSprite(665, 110, 51, 51);
+  foco3.addImage('foco1', loadImage('1erN/foco_idea_51.png'));
+  collectibles.add(foco3);
   }
 
   //sprite_sheet_ventilador_hacia_abajo.onMousePressed = function() {
@@ -271,18 +345,28 @@ function draw() {
 
   //show background
   image(background_N1, 0, 0, 818, 595);
+  
+     b.overlap(viento, collect2);
+
+ //>> BURBUJA PARA ARRIBA
+
+  if(b.position.x > m.position.x){
+    b.velocity.x = 0;
+     b.velocity.y = -2-GRAVITY;
+     m.velocity.y = -2-GRAVITY;
+   }
+  
   //maletin.collide(focos);
   //maletin.overlap(focos, collect);
 
   //________________________________________
 
-  //burbuja explotando
-  animation(burbuja_explode, 410, 495, 9);
-  animation(burbuja_acoger, 410, 495, 5);
+  ////burbuja explotando
+  //animation(burbuja_explode, 410, 495, 9);
+  //animation(burbuja_acoger, 410, 495, 5);
 
   //TIJERAS
   // grupo.displace(pelota);
-  drawSprites();
 
   //COLLIDERS
 
@@ -305,10 +389,40 @@ function draw() {
 
   if (t.overlap(sprite_sheet_cuerda_amarilla)) {
     sprite_sheet_cuerda_amarilla.visible = false;
-    print("desaparecer cuerda");
+    //print("desaparecer cuerda");
   }
 
+//<<< PARA PRIMER CLICK
+
+
   drawSprites();
+}
+
+//<<< PARA PRIMER CLICK
+function mouseClicked() {
+  if(estado = -1){
+sprite_sheet_linea_corte.visible= false;
+sprite_sheet_dedo_desliz.visible= false;
+sprite_sheet_txt_cortar.visible= false;
+sprite_sheet_txt_aire.visible= false;
+estado=0;
+  };
+  
+  
+}
+
+//<< FOCOS COLECCIONABLES
+function collect(collector, collected){
+  
+  collected.remove();
+}
+
+//<<MALETIN CON BURBUJA
+function collect2(collector, collected)
+{
+  
+  collector.velocity.x += 0.5;
+  collected.remove();
 }
 
 //function mouseClicked(){
